@@ -1,0 +1,75 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+header {
+    background: #35424a;
+    color: #ffffff;
+    padding: 10px 20px;
+    text-align: center;
+}
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+.search-bar {
+    margin: 20px 0;
+}
+input[type="text"] {
+    padding: 10px;
+    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+button {
+    padding: 10px 15px;
+    background: #35424a;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+button:hover {
+    background: #444;
+}
+.section {
+    margin-top: 20px;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+.table th, .table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+table td:last-child {
+  border: none;
+}
+.table th {
+    background-color: #35424a;
+    color: white;
+}
+td a .delete{
+    padding: 2px;
+}
+td a .update{
+    padding: 2px;
+}
+td a {
+    margin-left: 10px; /* Khoảng cách giữa các biểu tượng */
+    color: #35424a; /* Màu sắc cho biểu tượng */
+    text-decoration: none; /* Bỏ gạch chân cho liên kết */
+}
+td a:hover {
+    color: #ff0000; /* Màu sắc khi hover */
+}
