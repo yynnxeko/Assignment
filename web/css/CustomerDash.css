@@ -50,12 +50,58 @@ button:hover {
 .table th, .table td {
     border: 1px solid #ddd;
     padding: 8px;
-    text-align: left;
+    text-align: center;
 }
 .table th {
     background-color: #35424a;
     color: white;
 }
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
 .profile-info {
-    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.profile-info label {
+    width: 100px;
+    text-align: right;
+    margin-right: 1rem;
+}
+
+.profile-info input,
+.profile-info select {
+    flex: 1;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.profile-info button {
+    margin-left: 101px;
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+td a .delete{
+    padding: 2px;
+}
+td a .update{
+    padding: 2px;
+}
+td a {
+    margin-left: 10px; /* Khoảng cách giữa các biểu tượng */
+    color: #35424a; /* Màu sắc cho biểu tượng */
+    text-decoration: none; /* Bỏ gạch chân cho liên kết */
+}
+td a:hover {
+    color: #ff0000; /* Màu sắc khi hover */
 }

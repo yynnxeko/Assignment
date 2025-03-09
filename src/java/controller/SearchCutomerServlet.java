@@ -5,6 +5,7 @@
  */
 package controller;
 
+import Dao.CustomerDAO;
 import Dao.SearchCutomerDao;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -38,16 +39,20 @@ public class SearchCutomerServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession s = request.getSession();
-            SalesPerson sale = (SalesPerson) s.getAttribute("user");
-            if (sale == null) {
-                request.setAttribute("ERROR", "Bạn cần login để thực hiện tính năng");
+            Customer cu = (Customer) s.getAttribute("CUSTOMER");
+            if (cu  == null) {
+                request.setAttribute("ERROR", "Login first!");
                 request.getRequestDispatcher("MainServlet?action=home").forward(request, response);
             } else {
-                String nameCus = request.getParameter("customerSearch");
-                SearchCutomerDao d = new SearchCutomerDao();
-                ArrayList<Customer> list = d.getAllCustomersByName(nameCus);
-                request.setAttribute("RESULT", list);
-                request.getRequestDispatcher("MainServlet?action=dashboard").forward(request, response);
+                
+                CustomerDAO d = new CustomerDAO();
+                ArrayList<Customer> list = d.getAllCustomersById(cu.getCustID());
+                if (list == null || list.isEmpty()) {
+                        request.setAttribute("ERROR", "No invoices found for the given ID");
+                    } else {
+                        request.setAttribute("RESULT_CUSTOMER", list);
+                    }
+                request.getRequestDispatcher("MainServlet?action=custdashboard").forward(request, response);
             }
         }
     }

@@ -60,6 +60,10 @@
         <servlet-name>SearchInvoiceServlet</servlet-name>
         <servlet-class>controller.SearchInvoiceServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdateCustServlet</servlet-name>
+        <servlet-class>controller.UpdateCustServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MyConnection</servlet-name>
         <url-pattern>/MyConnection</url-pattern>
@@ -119,6 +123,10 @@
     <servlet-mapping>
         <servlet-name>SearchInvoiceServlet</servlet-name>
         <url-pattern>/SearchInvoiceServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateCustServlet</servlet-name>
+        <url-pattern>/UpdateCustServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

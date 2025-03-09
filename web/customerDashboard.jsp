@@ -1,3 +1,4 @@
+<%@page import="model.Customer"%>
 <%@page import="model.SalesInvoice"%>
 <%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
@@ -6,7 +7,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Customer Dashboard</title>
-        <link rel="stylesheet" href="css/CustomerDash.css">
+        <link rel="stylesheet" href="css/CustomerDash.css"> 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     </head>
     <body>
         <header>
@@ -33,42 +35,67 @@
                     <tbody>
                         <!-- Invoice data will be added here -->
                         <%
-                            ArrayList<SalesInvoice> kq = (ArrayList<SalesInvoice>) request.getAttribute("RESULT_INVOICE");
-                            if (kq != null && !kq.isEmpty()) {
-                                for (SalesInvoice in : kq) {
+                            ArrayList<SalesInvoice> invoiceList = (ArrayList<SalesInvoice>) request.getAttribute("RESULT_INVOICE");
+                            if (invoiceList != null && !invoiceList.isEmpty()) {
+                                for (SalesInvoice invoice : invoiceList) {
                         %>                    
-                        
+
                         <tr>
-                            <td><%= in.getInvoiceID()%></td>
-                            <td><%= in.getCreatedate()%></td>
-                            <td><%= in.getSaleID()%></td>
-                            <td><%= in.getCarID()%></td>
-                            <td><%= in.getCustID()%></td>                           
+                            <td><%= invoice.getInvoiceID()%></td>
+                            <td><%= invoice.getCreatedate()%></td>
+                            <td><%= invoice.getSaleID()%></td>
+                            <td><%= invoice.getCarID()%></td>
+                            <td><%= invoice.getCustID()%></td>                           
                         </tr>                                          
                         <%
+                                }
                             }
-                        }
                         %>
-                        
+
                     </tbody>
                 </table>
             </div>
             <div class="section">
-                <h2>Edit Profile</h2>
-                <form action="ProfileServlet" method="post" accept-charset="utf-8">
-                    <div class="profile-info">
-                        <label for="username">Username:</label>
-                        <input type="text" id="username" name="username" required>
+                <h2>Edit Profile For Customer</h2>
+                <form action="MainServlet" method="get" accept-charset="utf-8">
+                    <div class="search-bar">                        
+                        <input type="submit" name="action" value="Find_Customer">
                     </div>
-                    <div class="profile-info">
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="profile-info">
-                        <label for="phone">Phone:</label>
-                        <input type="text" id="phone" name="phone">
-                    </div>
-                    <button type="submit">Update Profile</button>
+                </form>
+                <form>
+                    <table class="table" id="customerTable">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Sex</th>
+                                <th>Address</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%
+                                ArrayList<Customer> customerList = (ArrayList<Customer>) request.getAttribute("RESULT_CUSTOMER");
+                                if (customerList != null && !customerList.isEmpty()) {
+                                    for (Customer customer : customerList) {
+                            %>
+                            <tr>
+                                <td><input type="text" id="custname" name="custname" value="<%= customer.getCustName()%>" required></td>
+                                <td><input type="text" id="custphone" name="custphone" value="<%= customer.getPhone()%>" required></td>
+                                <td><select id="sex" name="custsex" required>
+                                        <option value="M" <%= customer.getSex().equals("M") ? "selected" : ""%>>Men</option>
+                                        <option value="F" <%= customer.getSex().equals("F") ? "selected" : ""%>>Woman</option>
+                                    </select></td>
+                                <td><input type="text" id="custAddress" name="custAddress" value="<%= customer.getCustAddress()%>" required></td>
+                                <td class="active">
+                                    <input type="submit" name="action" value="Update_Customer">                                                  
+                                </td>
+                            </tr>
+                            <%
+                                    }
+                                }
+                            %>                              
+                        </tbody>
+                    </table>
                 </form>
             </div>
         </div>

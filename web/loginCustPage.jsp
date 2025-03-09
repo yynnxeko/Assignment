@@ -4,19 +4,21 @@
     Author     : ASUS
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>JSP Page</title>
     </head>
     <body>
         <h1>Login to Garage System</h1>
-        <form action="MainServlet" accept-charset="utf-8">  
-            <input type="text" id="txtname" name="txtname" required><br><br>
-            <input type="text" id="txtphone" name="txtphone">
-            <input type="submit" name="action" value="CustomerLogin">
+        <form action="MainServlet" accept-charset="utf-8"> 
+
+            <p><input type="text" name="txtname" required=""/>*</p>
+            <p><input type="text" name="txtphone" required=""/>*</p>
+            <p><input type="submit" name="action" value="CustomerLogin"/></p>
+
         </form>
         <p>
             <%

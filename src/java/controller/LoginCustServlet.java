@@ -32,12 +32,11 @@ public class LoginCustServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8"); // Đặt encoding ngay đầu hàm
         response.setContentType("text/html;charset=UTF-8");
 
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            request.setCharacterEncoding("UTF-8");
+            request.setCharacterEncoding("utf-8");
             String name = request.getParameter("txtname");
             String phone = request.getParameter("txtphone");
             if (name != null && phone != null) {
@@ -52,7 +51,7 @@ public class LoginCustServlet extends HttpServlet {
                 } else {
                     //luu cust vao session cus client
                     HttpSession s = request.getSession(true);
-                    s.setAttribute("customer", cust);
+                    s.setAttribute("CUSTOMER", cust);
                     request.getRequestDispatcher("MainServlet?action=custdashboard").forward(request, response);
                 }
             }

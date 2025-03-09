@@ -33,6 +33,7 @@ public class MainServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = "error.jsp";
         try {
+            request.setCharacterEncoding("utf-8");
             String a = request.getParameter("action");
             if (a == null) {
                 a = "home";
@@ -59,7 +60,7 @@ public class MainServlet extends HttpServlet {
                 case "dashboard":
                     url = "salePersonDashboard.jsp";
                     break;
-                case "find":
+                case "Find_Customer":
                     url = "SearchCutomerServlet";
                     break;
                 case "find_car":
@@ -68,6 +69,9 @@ public class MainServlet extends HttpServlet {
                 case "error":
                     url = "error.jsp";
                     break;
+                case "Update_Customer":
+                    url = "UpdateCustServlet";
+                    break;                
                 
             }
         } catch (Exception e) {

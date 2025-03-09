@@ -20,7 +20,7 @@ import mylib.MyConnection;
  */
 public class SearchInvoiceDAO {
 
-    public ArrayList<SalesInvoice> searchAllInvoiceById(int custid) {
+    public ArrayList<SalesInvoice> searchAllInvoiceById(int custId) {
         ArrayList<SalesInvoice> list = new ArrayList<>();
         Connection cn = null;
 
@@ -29,11 +29,11 @@ public class SearchInvoiceDAO {
             if (cn != null) {
                 String sql = "SELECT invoiceID, invoiceDate, salesID, carID, s.custID\n"
                         + "FROM SalesInvoice s\n"
-                        + "LEFT JOIN Customer c ON s.custID = c.custID\n"
-                        + "where c.custName = '" + custid + "'";
+                        + "JOIN Customer c ON s.custID = c.custID\n"
+                        + "where c.custID = " + custId;
 
                 PreparedStatement pst = cn.prepareStatement(sql);
-//                pst.setString(1, "%" + custid + "%");
+//                pst.setString(1, "%" + custId + "%");
                 ResultSet table = pst.executeQuery();
                 if (table != null) {
                     while(table.next()) {

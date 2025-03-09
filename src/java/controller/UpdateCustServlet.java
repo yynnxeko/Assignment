@@ -5,7 +5,7 @@
  */
 package controller;
 
-import Dao.SearchInvoiceDAO;
+import Dao.CustomerDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -15,13 +15,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Customer;
-import model.SalesInvoice;
 
 /**
  *
  * @author ASUS
  */
-public class SearchInvoiceServlet extends HttpServlet {
+public class UpdateCustServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,29 +36,23 @@ public class SearchInvoiceServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            request.setCharacterEncoding("utf-8");
             HttpSession session = request.getSession();
             Customer us = (Customer) session.getAttribute("CUSTOMER");
 
             if (us == null) {
-                request.setAttribute("ERROR", "Wrong InvoiceID");
-                request.getRequestDispatcher("MainServlet?action=custdashboard").forward(request, response);
+                request.setAttribute("ERROR", "Login first!!");
+                request.getRequestDispatcher("MainServlet?action=logincust").forward(request, response);
             } else {
-                try {
-                    SearchInvoiceDAO invoiceDAO = new SearchInvoiceDAO();
-                    ArrayList<SalesInvoice> invoiceList = invoiceDAO.searchAllInvoiceById(us.getCustID());
-
-                    if (invoiceList == null || invoiceList.isEmpty()) {
-                        request.setAttribute("ERROR", "No invoices found for the given ID");
-                    } else {
-                        request.setAttribute("RESULT_INVOICE", invoiceList);
-                    }
-                    request.getRequestDispatcher("MainServlet?action=custdashboard").forward(request, response);
-                } catch (Exception e) {
-                    request.setAttribute("ERROR", "Invalid Invoice ID format");
-                    request.getRequestDispatcher("MainServlet?action=custdashboard").forward(request, response);
-                }
+                int id = us.getCustID();
+                String name = request.getParameter("custname");
+                String phone = request.getParameter("custphone");
+                String sex = request.getParameter("custsex");
+                String custAddress = request.getParameter("custAddress");
+                CustomerDAO custDao = new CustomerDAO();
+                custDao.updateCustomer(id, name, phone, sex, custAddress);
+                request.getRequestDispatcher("MainServlet?action=custdashboard").forward(request, response);
             }
-
         }
     }
 
