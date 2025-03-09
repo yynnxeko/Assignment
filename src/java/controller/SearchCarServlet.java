@@ -5,8 +5,8 @@
  */
 package controller;
 
-import Dao.SearchCarsDao;
-import Dao.SearchCutomerDao;
+import Dao.CarsDao;
+import Dao.CutomerDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -52,7 +52,7 @@ public class SearchCarServlet extends HttpServlet {
                 if (carSearchSerial == null && carSearchModel == null && carSearchYear == null) {
                     response.sendRedirect("salePersonDashboard.jsp");
                 } else {
-                    SearchCarsDao c = new SearchCarsDao();
+                    CarsDao c = new CarsDao();
                     ArrayList<Cars> list = c.getCarsBySerialNumber_model_year(carSearchSerial, carSearchModel, year);
                     request.setAttribute("RESULT_CAR", list);
                     request.getRequestDispatcher("MainServlet?action=dashboard").forward(request, response);

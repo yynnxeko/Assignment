@@ -5,6 +5,7 @@
  */
 package controller;
 
+import Dao.CutomerDao;
 import Dao.SalesPersonDao;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,14 +14,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.SalesPerson;
+import model.Customer;
 
 /**
  *
  * @author BAO MINH
  */
-public class LoginSaleServlet extends HttpServlet {
+public class DeleteCustomer extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,28 +34,20 @@ public class LoginSaleServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String user = request.getParameter("username");
-            if(user != null){
-                SalesPersonDao sales = new SalesPersonDao();
-                SalesPerson salesPerson = sales.checkLogin(user);
-                if(salesPerson == null){
-                    request.setAttribute("ERROR", "Invalid username");
-                    request.getRequestDispatcher("MainServlet?action=home").forward(request, response);
-//                    
-                }else{
-                  
-                    HttpSession s = request.getSession();
-                    s.setAttribute("user", salesPerson);
-                    request.getRequestDispatcher("MainServlet?action=dashboard").forward(request, response);
-                }
+            String id = request.getParameter("id");
+            if (id != null) {
+                CutomerDao cus = new CutomerDao();
+                cus.deleteCustomer(id);
+                ArrayList<Customer> list = cus.getAllCustomers();
+                request.setAttribute("RESULT", list);
+                request.getRequestDispatcher("MainServlet?action=listCustomer").forward(request, response);
+            } else {
+                out.println("<h3>Invalid Customer ID</h3>");
             }
         }
     }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -93,5 +85,4 @@ public class LoginSaleServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }

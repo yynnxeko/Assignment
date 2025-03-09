@@ -22,7 +22,8 @@
                     <div class="search-bar">
                         <input type="text" id="customerSearch" name="customerSearch" placeholder="Tìm khách hàng theo tên...">
                         <input type="submit" name="action" value="find">
-                    </div>
+                        <a href="MainServlet?action=ListCustomerServlet">Show list customer</a>
+                    </div>  
                 </form>
                 <table class="table" id="customerTable">
                     <thead>
@@ -46,14 +47,6 @@
                             <td><%= v.getPhone()%></td>
                             <td><%= v.getSex()%></td>
                             <td><%= v.getCustAddress()%></td>
-                            <td class="active">
-                                <a class="update" href="editCustomer?id=<%= v.getCustID()%>" title="Sửa">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                <a class="delete" href="deleteCustomer?id=<%= v.getCustID()%>" title="Xóa" onclick="return confirm('Bạn có chắc chắn muốn xóa không?');">
-                                    <i class="fas fa-trash-alt"></i>
-                                </a>
-                            </td>
                         </tr>
                         <%
                             }
@@ -76,6 +69,7 @@
                         <input type="text" id="carSearch" name="carSearchModel" placeholder="Tìm xe theo số mẫu">
                         <input type="text" id="carSearch" name="carSearchYear" placeholder="Tìm xe theo số năm...">
                         <input type="submit" name="action" value="find_car">
+                         <a href="MainServlet?action=ListCarServlet">Show list car</a>
                     </div>
                 </form>
 
@@ -113,6 +107,7 @@
                 <h2>Tạo Vé Dịch Vụ</h2>
                 <input type="text" id="serviceCustomer" placeholder="Tên Khách Hàng">
                 <button>Tạo Vé</button>
+                <a href="MainServlet?action=ListTicketServlet">Show list ticket</a>
             </div>
         </div>
     </body>

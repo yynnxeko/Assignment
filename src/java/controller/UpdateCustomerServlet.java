@@ -5,22 +5,22 @@
  */
 package controller;
 
-import Dao.SalesPersonDao;
+import Dao.CutomerDao;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Array;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.SalesPerson;
+import model.Customer;
 
 /**
  *
  * @author BAO MINH
  */
-public class LoginSaleServlet extends HttpServlet {
+public class UpdateCustomerServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,24 +34,13 @@ public class LoginSaleServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String user = request.getParameter("username");
-            if(user != null){
-                SalesPersonDao sales = new SalesPersonDao();
-                SalesPerson salesPerson = sales.checkLogin(user);
-                if(salesPerson == null){
-                    request.setAttribute("ERROR", "Invalid username");
-                    request.getRequestDispatcher("MainServlet?action=home").forward(request, response);
-//                    
-                }else{
-                  
-                    HttpSession s = request.getSession();
-                    s.setAttribute("user", salesPerson);
-                    request.getRequestDispatcher("MainServlet?action=dashboard").forward(request, response);
-                }
-            }
+            String id = request.getParameter("id");
+            CutomerDao custDao = new CutomerDao();
+            ArrayList<Customer> cus = custDao.getCustomersById(id);
+            request.setAttribute("RESULT", cus);
+            request.getRequestDispatcher("updateCustomer.jsp").forward(request, response);
         }
     }
 
@@ -81,7 +70,17 @@ public class LoginSaleServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String id = request.getParameter("custID");
+            int custID = Integer.parseInt(id);
+            String name = request.getParameter("custName");
+            String phone = request.getParameter("phone");
+            String sex = request.getParameter("sex");
+            String custAddress = request.getParameter("custAddress");
+            CutomerDao cusDao = new CutomerDao();
+            cusDao.updateCustomer(custID, name, phone, sex, custAddress);
+            ArrayList<Customer> list = cusDao.getAllCustomers();
+            request.setAttribute("RESULT", list);
+            request.getRequestDispatcher("MainServlet?action=listCustomer").forward(request, response);
     }
 
     /**

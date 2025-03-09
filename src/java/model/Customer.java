@@ -24,6 +24,7 @@ public class Customer {
         this.phone = phone;
     }
     
+    
 
     public Customer(int custID, String custName, String phone, String sex, String custAddress) {
         this.custID = custID;

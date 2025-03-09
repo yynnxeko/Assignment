@@ -64,6 +64,42 @@
         <servlet-name>UpdateCustServlet</servlet-name>
         <servlet-class>controller.UpdateCustServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CarsDao</servlet-name>
+        <servlet-class>Dao.CarsDao</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ticketDao</servlet-name>
+        <servlet-class>Dao.ticketDao</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteCarServlet</servlet-name>
+        <servlet-class>controller.DeleteCarServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteCustomerServlet</servlet-name>
+        <servlet-class>controller.DeleteCustomerServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListCarServlet</servlet-name>
+        <servlet-class>controller.ListCarServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListCustomerServlet</servlet-name>
+        <servlet-class>controller.ListCustomerServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListTicketServlet</servlet-name>
+        <servlet-class>controller.ListTicketServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateCarServlet</servlet-name>
+        <servlet-class>controller.UpdateCarServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateCustomerServlet</servlet-name>
+        <servlet-class>controller.UpdateCustomerServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MyConnection</servlet-name>
         <url-pattern>/MyConnection</url-pattern>
@@ -127,6 +163,42 @@
     <servlet-mapping>
         <servlet-name>UpdateCustServlet</servlet-name>
         <url-pattern>/UpdateCustServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CarsDao</servlet-name>
+        <url-pattern>/CarsDao</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ticketDao</servlet-name>
+        <url-pattern>/ticketDao</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCarServlet</servlet-name>
+        <url-pattern>/DeleteCarServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCustomerServlet</servlet-name>
+        <url-pattern>/DeleteCustomerServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListCarServlet</servlet-name>
+        <url-pattern>/ListCarServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListCustomerServlet</servlet-name>
+        <url-pattern>/ListCustomerServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListTicketServlet</servlet-name>
+        <url-pattern>/ListTicketServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateCarServlet</servlet-name>
+        <url-pattern>/UpdateCarServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateCustomerServlet</servlet-name>
+        <url-pattern>/UpdateCustomerServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

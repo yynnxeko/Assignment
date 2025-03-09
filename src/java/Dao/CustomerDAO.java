@@ -109,4 +109,112 @@ public class CustomerDAO {
             e.printStackTrace();
         }
     }
+    ///////////////////////////////////////////////////////////////////////////
+    ////////////////////////
+    //////////////////////
+    ///////////////////////minh
+    public ArrayList<Customer> getAllCustomersByName(String name) {
+        ArrayList<Customer> result = new ArrayList<>();
+        Connection cn = null;
+        try {
+            //step 1:
+            cn = MyConnection.getConnection();
+            if (cn != null) {
+                //step 2:
+                String sql = "select custID, custName, phone, sex, cusAddress"
+                        + " FROM Customer"
+                        + " WHERE custName like ?";
+
+                PreparedStatement pst = cn.prepareStatement(sql);
+                pst.setString(1, "%" + name + "%");
+                ResultSet table = pst.executeQuery();
+                //step 3:
+                if (table != null) {
+                    while (table.next()) {
+                        int custid = table.getInt("custID");
+                        String custname = table.getString("custName");
+                        String phone = table.getString("phone");
+                        String sex = table.getString("sex");
+                        String address = table.getString("cusAddress");
+                        Customer cu = new Customer(custid, custname, phone, sex, address);
+                        result.add(cu);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    public void deleteCustomer(String id) {
+        Connection cn = null;
+        PreparedStatement st = null;
+        try {
+            cn = MyConnection.getConnection();
+            if (cn != null) {
+                // Bước 1: Xóa các dữ liệu liên quan trong bảng PartsUsed
+                String sql1 = "DELETE FROM PartsUsed WHERE serviceTicketID IN (SELECT serviceTicketID FROM ServiceTicket WHERE custID = ?)";
+                PreparedStatement st1 = cn.prepareStatement(sql1);
+                st1.setString(1, id);
+                st1.executeUpdate();
+
+                // Bước 2: Xóa các dữ liệu liên quan trong bảng ServiceMehanic
+                String sql2 = "DELETE FROM ServiceMehanic WHERE serviceTicketID IN (SELECT serviceTicketID FROM ServiceTicket WHERE custID = ?)";
+                PreparedStatement st2 = cn.prepareStatement(sql2);
+                st2.setString(1, id);
+                st2.executeUpdate();
+
+                // Bước 3: Xóa dữ liệu từ bảng ServiceTicket
+                String sql3 = "DELETE FROM ServiceTicket WHERE custID = ?";
+                PreparedStatement st3 = cn.prepareStatement(sql3);
+                st3.setString(1, id);
+                st3.executeUpdate();
+
+                // Bước 4: Xóa dữ liệu từ bảng SalesInvoice
+                String sql4 = "DELETE FROM SalesInvoice WHERE custID = ?";
+                PreparedStatement st4 = cn.prepareStatement(sql4);
+                st4.setString(1, id);
+                st4.executeUpdate();
+
+                // Bước 5: Xóa khách hàng từ bảng Customer
+                String sql5 = "DELETE FROM Customer WHERE custID = ?";
+                PreparedStatement st5 = cn.prepareStatement(sql5);
+                st5.setString(1, id);
+                st5.executeUpdate();
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public ArrayList<Customer> getAllCustomers() {
+        ArrayList<Customer> result = new ArrayList<>();
+        Connection cn = null;
+        try {
+            //step 1:
+            cn = MyConnection.getConnection();
+            if (cn != null) {
+                //step 2:
+                String sql = "select custID, custName, phone, sex, cusAddress"
+                        + " FROM Customer";
+                PreparedStatement pst = cn.prepareStatement(sql);
+                ResultSet table = pst.executeQuery();
+                //step 3:
+                if (table != null) {
+                    while (table.next()) {
+                        int custid = table.getInt("custID");
+                        String custname = table.getString("custName");
+                        String phone = table.getString("phone");
+                        String sex = table.getString("sex");
+                        String address = table.getString("cusAddress");
+                        Customer cu = new Customer(custid, custname, phone, sex, address);
+                        result.add(cu);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 }

@@ -6,43 +6,40 @@
 package Dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import model.Customer;
+import model.Ticket;
 import mylib.MyConnection;
 
 /**
  *
  * @author BAO MINH
  */
-public class SearchCutomerDao {
-
-    public ArrayList<Customer> getAllCustomersByName(String name) {
-        ArrayList<Customer> result = new ArrayList<>();
+public class TicketDao {
+    public ArrayList<Ticket> getAllTicket() {
+        ArrayList<Ticket> result = new ArrayList<>();
         Connection cn = null;
         try {
             //step 1:
             cn = MyConnection.getConnection();
             if (cn != null) {
                 //step 2:
-                String sql = "select custID, custName, phone, sex, cusAddress"
-                + " FROM Customer"
-                + " WHERE custName like ?";
-             
+                String sql = "select *"
+                        + " FROM ServiceTicket";
                 PreparedStatement pst = cn.prepareStatement(sql);
-                pst.setString(1, "%" + name + "%");
                 ResultSet table = pst.executeQuery();
                 //step 3:
                 if (table != null) {
                     while (table.next()) {
-                        int custid = table.getInt("custID");
-                        String custname = table.getString("custName");
-                        String phone = table.getString("phone");
-                        String sex = table.getString("sex");
-                        String address = table.getString("cusAddress");
-                        Customer cu = new Customer(custid, custname, phone, sex, address);
-                        result.add(cu);
+                        int ServiceTicketID = table.getInt("ServiceTicketID");
+                        String DateReceived = table.getString("DateReceived");
+                        Date DateReturned = table.getDate("DateReturned");
+                        Date CustID = table.getDate("CustID");
+                        int CarID = table.getInt("CarID");
+                        Ticket ticket = new Ticket(ServiceTicketID, DateReturned, DateReturned, CarID, CarID);
+                        result.add(ticket);
                     }
                 }
             }

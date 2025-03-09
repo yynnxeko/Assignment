@@ -5,7 +5,7 @@
  */
 package controller;
 
-import Dao.SalesPersonDao;
+import Dao.CarsDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -13,14 +13,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.SalesPerson;
+import model.Cars;
 
 /**
  *
  * @author BAO MINH
  */
-public class LoginSaleServlet extends HttpServlet {
+public class ListCarServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,24 +33,12 @@ public class LoginSaleServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String user = request.getParameter("username");
-            if(user != null){
-                SalesPersonDao sales = new SalesPersonDao();
-                SalesPerson salesPerson = sales.checkLogin(user);
-                if(salesPerson == null){
-                    request.setAttribute("ERROR", "Invalid username");
-                    request.getRequestDispatcher("MainServlet?action=home").forward(request, response);
-//                    
-                }else{
-                  
-                    HttpSession s = request.getSession();
-                    s.setAttribute("user", salesPerson);
-                    request.getRequestDispatcher("MainServlet?action=dashboard").forward(request, response);
-                }
-            }
+            CarsDao carDao = new CarsDao();
+            ArrayList<Cars> car = carDao.getAllCar();
+            request.setAttribute("RESULT", car);
+            request.getRequestDispatcher("listCar.jsp").forward(request, response);
         }
     }
 
